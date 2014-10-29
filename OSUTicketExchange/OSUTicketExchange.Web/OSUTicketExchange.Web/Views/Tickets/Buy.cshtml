@@ -1,0 +1,101 @@
+﻿@model List<OSUTicketExchange.Web.Models.TicketDetailViewModel>
+
+@{
+    ViewBag.Title = "Buy";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br/>
+<a href="/Home/Index" class="btn btn-primary"><div style="color: white; font-style: normal">Back To Home</div></a>
+<br />
+<select id="game" style="margin-top:5%" class="form-control">
+    Games:
+    @foreach (var item in ViewBag.game as List<OSUTicketExchange.Web.Models.Game>)
+    {
+        <option value="@item.Name">@item.Name</option>
+    }
+</select>
+<div class="container" style="margin-top:3%">
+    @Html.Partial("_InteractiveMap");
+</div>
+<br/>
+    <table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().ListOfGames.FirstOrDefault().Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Seat.Section)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Seat.SeatRow)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Seat.SeatNum)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Ticket.Price)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model){
+    <tr>
+        @Html.HiddenFor(modelItem => item.Ticket.Id)
+        <td>
+            @item.ListOfGames.FirstOrDefault().Name
+        </td>
+        <td>
+            @item.Seat.Section
+        </td>
+        <td>@item.Seat.SeatRow</td>
+        <td>@item.Seat.SeatNum</td>
+        <td>@item.Ticket.Price</td>
+        <td>
+            <a href=@Url.Action("Details", new { id = item.Ticket.Id }) class="btn btn-success btn-sm" role="button">View Ticket</a>
+        </td>
+    </tr>
+}
+
+</table>
+
+<hr />
+
+<a href="/Home/Index" class="btn btn-primary"><div style="color: white; font-style: normal">Back To Home</div></a>
+
+<script>
+    $("#game").change(function () {
+        Filter(null, this.value);
+    });
+    function Filter(section, game) {
+        var data = {
+            game: game,
+            section: section,
+            seat: "",
+            rownumber: "",
+            price: ""
+        }
+        $.ajax({
+            type: 'POST',
+            url: "/Tickets/Buy",
+            data: data,
+            success: function (data) {
+                //alert(data);
+                ParseAndDisplay(data);
+                //window.location.replace('/');
+            }
+        });
+    }
+    function ParseAndDisplay(data) {
+        $('.table').children().remove();
+        $('.table').append("<tr><th>Against:</th><th>Section</th><th>Seat Row</th><th>Seat Number:</th><th>Asking Price</th><th></th></tr>");
+        for (var i = 0; i < data.length; i++) {
+            $('.table').append('<tr><input data-val="true" data-val-number="The field Id must be a number." data-val-required="The Id field is required." id="item_Ticket_Id" name="item.Ticket.Id" type="hidden" value="' + data[i].Ticket.Id + '"><td>' + data[i].ListOfGames[0].Name + '</td><td>' + data[i].Seat.Section + '</td><td>' + data[i].Seat.SeatRow + '</td><td>' + data[i].Seat.SeatNum + '</td><td>' + data[i].Ticket.Price + '</td><td><a href="/Tickets/Details/'+ data[i].Ticket.Id + '" class="btn btn-success btn-sm" role="button">View Ticket</a></td></tr>');
+        }
+        $('.table').append('</table>');
+    }
+</script>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/slider");
+}
+

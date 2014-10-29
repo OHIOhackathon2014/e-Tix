@@ -1,0 +1,44 @@
+﻿@{
+    ViewBag.Title = "OSU Ticket Exchange";
+}
+
+<h2>@ViewBag.Title.</h2>
+<div class="row">
+    <img src="/assets/img/ohio-stadium.jpg" id="full-screen-background-image" />
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <div class="jumbutton" style="margin-top:50%">
+            <div id="facebook-login">
+                <button class="btn btn-lg btn-primary btn-block facebook-login" style="display:none">Sign in With your Facebook</button>
+                <div id="loader" style="display:none"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4"></div>
+</div>
+<script>
+    var opts = {
+        lines: 13, // The number of lines to draw
+        length: 40, // The length of each line
+        width: 13, // The line thickness
+        radius: 60, // The radius of the inner circle
+        corners: 1, // Corner roundness (0..1)
+        rotate: 48, // The rotation offset
+        direction: 1, // 1: clockwise, -1: counterclockwise
+        color: '#000', // #rgb or #rrggbb or array of colors
+        speed: 1.2, // Rounds per second
+        trail: 55, // Afterglow percentage
+        shadow: false, // Whether to render a shadow
+        hwaccel: true, // Whether to use hardware acceleration
+        className: 'spinner', // The CSS class to assign to the spinner
+        zIndex: 2e9, // The z-index (defaults to 2000000000)
+        top: '50%', // Top position relative to parent
+        left: '50%' // Left position relative to parent
+    };
+    var target = document.getElementById('loader');
+    var spinner = new Spinner(opts).spin(target);
+</script>
+@section Scripts {
+    @Scripts.Render("~/bundles/facebook")
+    @Scripts.Render("~/bundles/jqueryval")
+}

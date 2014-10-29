@@ -1,0 +1,120 @@
+﻿@model OSUTicketExchange.Web.Models.TicketDetailViewModel
+
+
+@{
+    ViewBag.Title = "Sell";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Scripts.Render("~/bundles/knockout")
+<h2>Sell</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Seat.CreatedAt)
+
+    <div class="form-horizontal">
+        <h4>Add your Ticket Information</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+
+      
+
+        <div class="form-group">
+            <Label class = "control-label col-md-2">Game</Label> 
+            <div class="col-md-4">
+                @Html.DropDownListFor(mode => Model.ListOfGames, new SelectList(ViewBag.games, "Value", "Text"), new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Ticket.Price, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Ticket.Price, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Ticket.Price)
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Ticket.NumberOfTickets, new {@class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(mode => Model.Ticket.NumberOfTickets, new SelectList(Model.numOfSeats, "Value", "Text"), new { @id="numOfTickets", @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Ticket.NumberOfTickets)
+            </div>
+        </div>
+
+        
+        <div class="form-group">
+            <label class="control-label col-md-offset-2">Seat Information</label>
+            <div class="col-md-offset-2">
+
+                <div id="seat0"></div>
+                <div id="seat1"></div>
+                <div id="seat2"></div>
+                <div id="seat3"></div>
+                <hr />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-primary" />
+                <a href="/Home/Index" class="btn btn-primary"><div style="color: white; font-style: normal">Back To Home</div></a>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<script>
+
+    $(function () {
+        $('#seat0').load('/Seats/AddSeat');
+       
+    });
+
+    var numberOfSeatsCurrently = 0;
+    var numberOfSeatsPrev = 0;
+
+    $("#numOfTickets").change(function () {
+        numberOfSeatsCurrently = ($("#numOfTickets").val());
+
+        if (numberOfSeatsCurrently > numberOfSeatsPrev) {
+            numberOfSeatsPrev = numberOfSeatsCurrently;
+            insertSeat(numberOfSeatsCurrently);
+        }
+        else if(numberOfSeatsCurrently < numberOfSeatsPrev)
+        {
+            numberOfSeatsPrev = numberOfSeatsCurrently;
+            removeSeat(numberOfSeatsCurrently);
+        }
+    })
+
+    function insertSeat(nOfS)
+    {
+        for (var i = 1; i < nOfS; i++) {
+            var x = "seat" + i
+            $('#seat' + i).load('/Seats/AddSeat');
+        }
+    }
+    function removeSeat(numberOfSeatsCurrently) {
+        if(numberOfSeatsCurrently == 3){
+            $('#seat3').html("");
+        }
+        else if(numberOfSeatsCurrently == 2)
+        {
+            $('#seat2').html("");
+        }
+        else if(numberOfSeatsCurrently == 1)
+        {
+            $('#seat1').html("");
+        }
+    }
+
+</script>

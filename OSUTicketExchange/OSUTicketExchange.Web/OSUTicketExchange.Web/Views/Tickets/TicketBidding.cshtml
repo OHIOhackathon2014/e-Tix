@@ -1,0 +1,56 @@
+﻿@model List<OSUTicketExchange.Web.Models.TicketBid>
+
+
+@{
+    var userId = 0;
+    var ticketId = 0;
+    var ticketUserId = 0;
+    int.TryParse((Model.Select(model => model.UserId).FirstOrDefault().ToString()), out userId);
+    int.TryParse((Model.Select(model => model.TicketID).FirstOrDefault().ToString()), out ticketId);
+    int.TryParse((Model.Select(model => model.TicketUserId).FirstOrDefault().ToString()), out ticketUserId);
+}
+
+<hr />
+<h4>Ticket Bids</h4>
+    @for(var item = 0; item < Model.Count(); item++)
+    {
+        @Html.HiddenFor(model => model[item].UserId, new { @id = "userId"})
+        <div class="row">
+            <div class="well well col-md-offset-1 col-md-4" >
+
+ 
+                    @Html.LabelFor(model => model[item].Price, new { @class = "control-label"})
+                    $ @Html.DisplayFor(model => model[item].Price, new { @class = "form-control" })
+
+                    @if (ViewBag.CurrentUserID == ticketUserId)
+                    {
+                        <a class="btn btn-primary btn-sm col-sm-offset-2" onclick="sellTicket(@ticketId,@userId)"  role="button">Sell Ticket To Bidder</a>
+                    }
+                    
+            </div>
+        </div>
+
+    }
+
+<script>
+
+    function sellTicket(ticketId, userId)
+    {
+        $.ajax({
+            url: "/Tickets/SellTicketSubmit",
+            type: "POST",
+            data: 
+                {
+                    ticketId : ticketId,
+                    UserId : userId
+                },
+            success: function (data, textStatus) {
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+
+            }
+        });
+
+    }
+</script>
+

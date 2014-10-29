@@ -1,0 +1,19 @@
+﻿@using OSUTicketExchange.Web.Utilities
+@{
+    ViewBag.Title = "OSU Ticket Exchnage - Home";
+}
+<div class="row">
+    <img src="/assets/img/ohio-stadium.jpg" id="full-screen-background-image" /> 
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <div class="jumbutton" style="margin-top:20%">
+            <h2 class="main" style="text-align: center">Welcome to E-TIX, @Globals.CurrentUser.Name</h2>
+            <br/>
+            <div class=" main text-center" >
+                <a style="font-style: normal;" href="/Tickets/Buy"class="btn btn-lg btn-primary btn-block">Buy Tickets</a>
+                OR
+                <a style="font-style: normal;" href="/Tickets/Sell" class="btn btn-lg btn-danger btn-block">Sell Tickets</a></div>
+        </div>
+    </div>
+    <div class="col-md-2"></div>
+</div>

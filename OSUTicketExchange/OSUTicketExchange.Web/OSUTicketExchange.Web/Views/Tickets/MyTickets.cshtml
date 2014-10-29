@@ -1,0 +1,46 @@
+﻿@model IEnumerable<OSUTicketExchange.Web.Models.TicketBuyingViewModel>
+
+@{
+    ViewBag.Title = "";
+}
+
+<h2>My Tickets For Sale</h2>
+
+
+@if (Model != null && Model.Count() < 1)
+{
+    <div class="alert alert-warning margin-top-20">
+        <strong>0</strong> Tickets For Sale
+    </div>
+}
+else
+{
+    <table class="table table-condensed table-striped table-hover margin-top-20">
+        <tr>
+            <th>Game</th>
+            <th>Seat</th>
+            <th>Row</th>
+            <th>Section</th>
+            <th>Status</th>
+            <th># of Bids</th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Game.Format()</td>
+                <td>@item.Seat.SeatNum</td>
+                <td>@item.Seat.SeatRow</td>
+                <td>@item.Seat.Section</td>
+                <td></td>
+                <td>1</td>
+                <td>
+                    <button type="button" class="btn btn-default btn-xs" title="View Ticket"><i class="fa fa-list"></i></button>
+                    <button type="button" class="btn btn-default btn-xs" title="Remome Ticket"><i class="fa fa-times"></i></button>
+                </td>
+            </tr>
+        }
+
+    </table>
+}

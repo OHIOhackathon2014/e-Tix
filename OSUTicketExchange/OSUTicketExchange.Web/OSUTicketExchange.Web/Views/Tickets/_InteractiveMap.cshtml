@@ -1,0 +1,69 @@
+﻿<p>Click on the section you would like to buy tickets for:</p>
+
+<img src="/assets/img/stadium-map.gif" width="525" height="445" alt="Interactive Map" usemap="#stadiummap">
+
+<map name="stadiummap">
+    <!--South Side-->
+    <area shape="circle" coords="30,106,5" alt="31B" href="#" class="section">
+    <area shape="circle" coords="32,130,10" alt="33B" href="#" class="section">
+    <area shape="circle" coords="29,164,10" alt="35B" href="#" class="section">
+    <area shape="circle" coords="24,193,10" alt="37B" href="#" class="section">
+    <area shape="circle" coords="25,225,10" alt="39B" href="#" class="section">
+    <area shape="circle" coords="25,257,10" alt="38B" href="#" class="section">
+    <area shape="circle" coords="27,289,10" alt="36B" href="#" class="section">
+    <area shape="circle" coords="37,319,10" alt="34B" href="#" class="section">
+    <area shape="circle" coords="38,344,5" alt="32B" href="#" class="section">
+    <area shape="circle" coords="68,150,5" alt="33A" href="#" class="section">
+    <area shape="circle" coords="71,170,8" alt="35A" href="#" class="section">
+    <area shape="circle" coords="78,196,10" alt="37A" href="#" class="section">
+    <area shape="circle" coords="80,226,10" alt="39A" href="#" class="section">
+    <area shape="circle" coords="77,257,10" alt="38A" href="#" class="section">
+    <area shape="circle" coords="71,283,8" alt="36A" href="#" class="section">
+    <area shape="circle" coords="69,304,5" alt="34A" href="#" class="section">
+    <area shape="circle" coords="121,199,8" alt="37AA" href="#" class="section">
+    <area shape="circle" coords="121,227,8" alt="39AA" href="#" class="section">
+    <area shape="circle" coords="121,256,8" alt="38AA" href="#" class="section">
+
+    <!--North Side-->
+    <area shape="circle" coords="458,98,10" alt="9C" href="#" class="section">
+    <area shape="circle" coords="484,127,10" alt="7C" href="#" class="section">
+    <area shape="circle" coords="498,150,5" alt="5C" href="#" class="section">
+    <area shape="circle" coords="506,211,4" alt="3C" href="#" class="section">
+    <area shape="circle" coords="507,222,4" alt="1C" href="#" class="section">
+    <area shape="circle" coords="506,232,4" alt="2C" href="#" class="section">
+    <area shape="circle" coords="506,243,4" alt="4C" href="#" class="section">
+    <area shape="circle" coords="498,304,5" alt="6C" href="#" class="section">
+    <area shape="circle" coords="492,331,10" alt="8C" href="#" class="section">
+    <area shape="circle" coords="460,352,10" alt="10C" href="#" class="section">
+    <area shape="circle" coords="435,125,8" alt="7B" href="#" class="section">
+    <area shape="circle" coords="455,145,8" alt="5B" href="#" class="section">
+    <area shape="circle" coords="471,167,8" alt="3B" href="#" class="section">
+    <area shape="circle" coords="480,194,8" alt="1B" href="#" class="section">
+    <area shape="circle" coords="479,258,8" alt="2B" href="#" class="section">
+    <area shape="circle" coords="472,284,8" alt="4B" href="#" class="section">
+    <area shape="circle" coords="456,307,8" alt="6B" href="#" class="section">
+    <area shape="circle" coords="438,326,8" alt="8B" href="#" class="section">
+    <area shape="circle" coords="409,140,6" alt="9A" href="#" class="section">
+    <area shape="circle" coords="425,158,8" alt="7A" href="#" class="section">
+    <area shape="circle" coords="440,178,8" alt="5A" href="#" class="section">
+    <area shape="circle" coords="450,201,8" alt="3A" href="#" class="section">
+    <area shape="circle" coords="462,221,5" alt="1A" href="#" class="section">
+    <area shape="circle" coords="462,235,5" alt="2A" href="#" class="section">
+    <area shape="circle" coords="451,254,8" alt="4A" href="#" class="section">
+    <area shape="circle" coords="440,279,8" alt="6A" href="#" class="section">
+    <area shape="circle" coords="423,298,8" alt="8A" href="#" class="section">
+    <area shape="circle" coords="408,315,6" alt="10A" href="#" class="section">
+    <area shape="circle" coords="390,179,6" alt="9AA" href="#" class="section">
+    <area shape="circle" coords="397,194,6" alt="7AA" href="#" class="section">
+    <area shape="circle" coords="405,208,6" alt="5AA" href="#" class="section">
+    <area shape="circle" coords="409,222,5" alt="3AA" href="#" class="section">
+    <area shape="circle" coords="409,233,5" alt="4AA" href="#" class="section">
+    <area shape="circle" coords="405,248,6" alt="6AA" href="#" class="section">
+    <area shape="circle" coords="397,262,6" alt="8AA" href="#" class="section">
+    <area shape="circle" coords="390,278,6" alt="10AA" href="#" class="section">
+</map>
+<script>
+    $('.section').click(function () {
+        Filter($(this).attr("alt"), $('#game').val());
+    });
+</script>

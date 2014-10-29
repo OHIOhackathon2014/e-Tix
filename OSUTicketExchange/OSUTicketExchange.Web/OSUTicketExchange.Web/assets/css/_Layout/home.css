@@ -1,0 +1,39 @@
+﻿
+/* Tansparent Navbar */
+.navbar-sm .transparent {
+    background: rgba(0,0,0,0.8);
+    color: #ffffff;
+}
+
+/* Dropdowns*/
+.nav.navbar-nav > li.dropdown.active.open > a, 
+.nav.navbar-nav > li.dropdown.active.open > ul.dropdown-menu a:hover,
+.nav.navbar-nav > li.dropdown.open > a, 
+.nav.navbar-nav > li.dropdown.open > ul.dropdown-menu a:hover
+{
+    background-color: rgba(0,0,0,0.2);
+    color: #ffffff;
+}
+
+/* Links Hover and Focus*/
+.nav > li > a:hover,
+.nav > li > a:focus {
+    text-decoration: underline;
+    background-color: rgba(0,0,0,0.2);
+}
+
+/* Navbar Size */
+.navbar-xs .navbar-primary .navbar {
+    min-height: 28px;
+    height: 28px;
+}
+
+.navbar-sm .navbar-primary .navbar {
+    min-height: 40px;
+    height: 40px;
+}
+.navbar-sm .navbar .navbar-brand {
+    padding: 0px 12px;
+    font-size: 16px;
+    line-height: 40px;
+}

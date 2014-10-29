@@ -1,0 +1,11 @@
+﻿
+/* All Links*/
+.nav > li > a {
+    color: #ffffff;
+    font-style: normal;
+}
+/* Brand Link*/
+.navbar-sm .navbar-header .navbar-brand {
+    color: #ffffff;
+    font-style: normal;
+}

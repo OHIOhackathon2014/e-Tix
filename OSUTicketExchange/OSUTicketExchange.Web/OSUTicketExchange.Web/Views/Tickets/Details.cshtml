@@ -1,0 +1,141 @@
+﻿@model OSUTicketExchange.Web.Models.TicketBuyingViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+<h2>Details</h2>
+
+<div>
+    <h4>Ticket Information</h4>
+	<hr />
+    <dl class="dl-horizontal">
+
+        @Html.HiddenFor(model => Model.Ticket.Id, new { @id = "ticketID"})
+        <dt>
+            @Html.DisplayNameFor(model => model.Game.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Game.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Game.Date)
+        </dt>
+
+        <dd>
+
+            @if(Model.Game.Date != null)
+            {
+                <span>@Model.Game.Date.ToShortDateString()</span>
+            }
+            else
+            {
+                <span>TBD</span>
+            }
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Game.StartTime)
+        </dt>
+
+        <dd>
+            @if (Model.Game.StartTime.HasValue)
+            {
+                <span>@DateTime.Parse(Model.Game.StartTime.ToString()).ToShortTimeString()</span>
+            }
+            else
+            {
+                <span>TBD</span>
+            }
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ticket.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ticket.Price)
+        </dd>
+
+        <hr />
+        <h4>Seat Information</h4>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Seat.SeatNum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Seat.SeatNum)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Seat.SeatRow)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Seat.SeatRow)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Seat.Section)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Seat.Section)
+        </dd>
+
+    </dl>
+    <div id="Error">
+        @if (ViewData["Error"] != null)
+        {
+            <div class="alert alert-danger" role="alert">
+            @ViewData["Error"]
+</div>
+        }
+    </div>
+    <div id="bids">
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="input-group">
+                <span class="input-group-addon">$</span>
+                <input type="text" class="form-control" placeholder="Offered Price:" id="offeredPrice" />
+                    <button class="btn btn-primary" type="button" id="offer">Offer</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+<br/>
+<div>
+    <a href="/Tickets/Buy" class="btn btn-primary"><div style="color: white; font-style: normal">Back To List</div></a>
+</div>
+
+<script>
+
+    $(function () {
+        setTimeout(function() {
+            $('#Error').fadeOut('fast');
+        }, 20000); 
+        var ticket = $("#ticketID").val();
+        $('#bids').load('/Tickets/TicketBidding?id=' + ticket);
+
+        $('#offer').click(function () {
+            var data = {
+                UserID: @OSUTicketExchange.Web.Utilities.Globals.CurrentUser.Id ,
+                TicketID: @Model.Ticket.Id ,
+                Price: $('#offeredPrice').val()
+                };
+            $.ajax({
+                type: 'POST',
+                url: "/Tickets/Bid",
+                data: data,
+                success: function (data) {
+                    location.reload();
+                }
+            });
+        });
+    });
+</script>

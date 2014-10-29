@@ -1,0 +1,23 @@
+USE [TicketExchange]
+GO
+
+/****** Object:  Table [dbo].[Seats]    Script Date: 10/3/2014 10:46:23 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Seats](
+	[SeatID] [int] IDENTITY(1,1) NOT NULL,
+	[SeatNum] [int] NOT NULL,
+	[SeatRow] [int] NOT NULL,
+	[Section] [nvarchar](8) NOT NULL,
+ CONSTRAINT [PK_Seats] PRIMARY KEY CLUSTERED 
+(
+	[SeatID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+

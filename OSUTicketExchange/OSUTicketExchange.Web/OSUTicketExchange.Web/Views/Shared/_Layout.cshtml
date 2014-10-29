@@ -1,0 +1,81 @@
+﻿@using OSUTicketExchange.Web.Utilities
+
+@{
+      string controller = ViewContext.Controller.ValueProvider.GetValue("controller").RawValue.ToString();
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - OSU Ticket Exchange</title>
+
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/bootstrap.css")
+    @if(controller == "Home") {@Styles.Render("~/Assets/css/_Layout/home.css")}
+    @Styles.Render("~/Assets/css/_Layout/layout.css")
+    @Scripts.Render("~/bundles/modernizr")
+    @*@Scripts.Render("~/bundles/jquery")*@
+    @Scripts.Render("~/bundles/spin")
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+</head>
+<body>
+
+    @if (Globals.CurrentUser != null)
+    {
+        <div class="navbar-sm transparent @(controller != "Home" ? "navbar-inverse" : string.Empty)" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/Home">OSU Ticket Exchange </a>
+                </div> <!--/.nav-header-->
+                
+                    <div class="collapse navbar-collapse">
+                        <!--Left Nav-->
+                        <ul class="nav navbar-nav">
+                                @if (Globals.CurrentUser.IsAdmin || 1==1)
+                                {
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin <span style="color:#ffffff;" class="caret"></span></a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="/Game">Games</a></li>
+                                            <li><a href="#">Settings</a></li>
+                                            <li class="divider"></li>
+                                            <li><a href="#">Separated link</a></li>
+                                        </ul>
+                                    </li>
+                                }
+                                <li @(controller == "Home" ? "class=active" : string.Empty)><a href="/Home">Home</a></li>
+                                <li @(controller == "Tickets" ? "class=active" : string.Empty)><a href="/Tickets/MyTickets">My Tickets</a></li>
+                            </ul>
+                         
+
+                    <!-- Right Nav-->
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>@Html.Partial("_LoginPartial")</li>
+                    </ul>
+
+                </div><!--/.nav-collapse -->
+            </div>
+        </div>
+    }
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    
+
+
+</body>
+</html>
